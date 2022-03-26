@@ -31,7 +31,7 @@ function WorkoutTimer() {
 
   useEffect(() => {
     let interval = null;
-    if (!timerPaused) {
+    if (!timerPaused && secondsRemaining !== 0) {
       interval = setInterval(() => {
         setSecondsRemaining(secondsRemaining - 1);
       }, 1000);

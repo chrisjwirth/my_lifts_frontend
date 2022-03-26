@@ -7,7 +7,7 @@ export const Workout = ({ workoutToEdit }) => {
   return (
     <>
       <Flex justify="Center">
-        <Stack w="full" h="full" p={10} m={10} spacing={5} border="1px">
+        <Stack w="full" h="full" p={10} m={[2, 4, 10]} spacing={5} border="1px">
           <WorkoutTimer />
           <CreateUpdateDeleteWorkout workoutToEdit={workoutToEdit} />
         </Stack>
