@@ -14,7 +14,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const LogOut = (props) => {
+const LogOut = ({ setLoggedIn }) => {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const LogOut = (props) => {
       .then((res) => res.json())
       .then((data) => {
         localStorage.clear();
-        props.setLoggedIn(false);
+        setLoggedIn(false);
         navigate("/log-in");
       });
   };

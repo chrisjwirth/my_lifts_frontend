@@ -43,7 +43,10 @@ function App() {
             <Spacer />
             <main>
               <Routes>
-                <Route path="/sign-up" element={<SignUp />} />
+                <Route
+                  path="/sign-up"
+                  element={<SignUp setLoggedIn={setLoggedIn} />}
+                />
                 <Route
                   path="/log-in"
                   element={<LogIn setLoggedIn={setLoggedIn} />}

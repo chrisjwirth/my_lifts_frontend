@@ -13,9 +13,8 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
-import PasswordInput from "../../components/auth/PasswordInput";
 
-const SignUp = () => {
+const SignUp = ({ setLoggedIn }) => {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -57,6 +56,7 @@ const SignUp = () => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
+          setLoggedIn(true);
           navigate("/all-workouts");
         } else {
           setEmail("");

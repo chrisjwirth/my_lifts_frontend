@@ -14,7 +14,7 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 
-const LogIn = (props) => {
+const LogIn = ({ setLoggedIn }) => {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -54,13 +54,13 @@ const LogIn = (props) => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
-          props.setLoggedIn(true);
+          setLoggedIn(true);
           navigate("/all-workouts");
         } else {
           setEmail("");
           setPassword("");
           localStorage.clear();
-          props.setLoggedIn(false);
+          setLoggedIn(false);
           setErrors(true);
         }
       });
