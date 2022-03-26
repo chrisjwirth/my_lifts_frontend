@@ -16,6 +16,7 @@ import {
 import PasswordInput from "../../components/auth/PasswordInput";
 
 const SignUp = () => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const [show, setShow] = React.useState(false);
@@ -35,7 +36,7 @@ const SignUp = () => {
     }
   }, []);
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     const user = {
@@ -44,15 +45,15 @@ const SignUp = () => {
       password2: password2,
     };
 
-    fetch("http://127.0.0.1:8000/api/v1/dj-rest-auth/register/", {
+    fetch(`${BASE_URL}/auth/registration/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
@@ -82,7 +83,7 @@ const SignUp = () => {
                 value={email}
                 placeholder="jack@chinchilla.com"
                 required
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
             <GridItem colSpan={1}>
@@ -95,7 +96,7 @@ const SignUp = () => {
                   value={password1}
                   placeholder="Enter Password"
                   required
-                  onChange={e => setPassword1(e.target.value)}
+                  onChange={(e) => setPassword1(e.target.value)}
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -114,7 +115,7 @@ const SignUp = () => {
                   value={password2}
                   placeholder="Confirm Password"
                   required
-                  onChange={e => setPassword2(e.target.value)}
+                  onChange={(e) => setPassword2(e.target.value)}
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
