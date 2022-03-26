@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import {
   Button,
-  Flex,
   FormControl,
   FormLabel,
   GridItem,
   Heading,
   Input,
-  InputGroup,
-  InputRightElement,
   SimpleGrid,
-  Text,
   useToast,
-  VStack,
 } from "@chakra-ui/react";
 import CreateUpdateDeleteExercise from "../exercise/CreateUpdateDeleteExercise";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +16,7 @@ import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { parseISO } from "date-fns";
 
 export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -37,7 +33,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
     [...Array(workoutToEdit?.exercises.length).keys()] ?? [0]
   );
 
-  const postData = async event => {
+  const postData = async (event) => {
     event.preventDefault();
     setLoading(true);
     const newWorkout = {
@@ -46,7 +42,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
       location,
       notes,
     };
-    const response = await fetch("/api/v1/workouts/", {
+    const response = await fetch(`${BASE_URL}/workouts/`, {
       method: "POST",
       body: JSON.stringify(newWorkout),
       headers: {
@@ -59,7 +55,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
     setLoading(false);
   };
 
-  const putData = async event => {
+  const putData = async (event) => {
     event.preventDefault();
     setLoading(true);
     const workout = {
@@ -68,7 +64,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
       location,
       notes,
     };
-    const response = await fetch(`/api/v1/workouts/${workoutID}/`, {
+    const response = await fetch(`${BASE_URL}/workouts/${workoutID}/`, {
       method: "PUT",
       body: JSON.stringify(workout),
       headers: {
@@ -87,10 +83,10 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
     });
   };
 
-  const deleteData = async event => {
+  const deleteData = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const response = await fetch(`/api/v1/workouts/${workoutID}/`, {
+    const response = await fetch(`${BASE_URL}/workouts/${workoutID}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -113,9 +109,9 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
     setExerciseNumbers([...exerciseNumbers, exerciseNumbers.length]);
   };
 
-  const deleteExercise = toDelete => {
+  const deleteExercise = (toDelete) => {
     setExerciseNumbers(
-      exerciseNumbers.filter(exerciseNum => exerciseNum !== toDelete)
+      exerciseNumbers.filter((exerciseNum) => exerciseNum !== toDelete)
     );
   };
 
@@ -138,7 +134,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
                 type="text"
                 value={name}
                 required
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </FormControl>
           </GridItem>
@@ -149,7 +145,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
                 id="date"
                 name="date"
                 date={date}
-                onDateChange={date => setDate(date)}
+                onDateChange={(date) => setDate(date)}
               />
             </FormControl>
           </GridItem>
@@ -161,7 +157,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
                 name="location"
                 type="text"
                 value={location}
-                onChange={e => setLocation(e.target.value)}
+                onChange={(e) => setLocation(e.target.value)}
               />
             </FormControl>
           </GridItem>
@@ -173,7 +169,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
                 name="notes"
                 type="text"
                 value={notes}
-                onChange={e => setNotes(e.target.value)}
+                onChange={(e) => setNotes(e.target.value)}
               />
             </FormControl>
           </GridItem>
@@ -205,7 +201,7 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
           </GridItem>
         </SimpleGrid>
       </form>
-      {exerciseNumbers.map(exerciseNum => (
+      {exerciseNumbers.map((exerciseNum) => (
         <CreateUpdateDeleteExercise
           exerciseNum={exerciseNum}
           workoutID={workoutID}

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link as ReactRouter } from "react-router-dom";
 import {
   Box,
   Flex,
   Heading,
-  Link,
   Show,
   Spacer,
   useColorMode,

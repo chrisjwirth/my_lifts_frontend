@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import {
   Button,
-  Flex,
   FormControl,
   FormLabel,
   GridItem,
   Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   SimpleGrid,
-  Text,
   useToast,
-  VStack,
 } from "@chakra-ui/react";
 
 export const CreateUpdateDeleteSet = ({
@@ -27,6 +21,7 @@ export const CreateUpdateDeleteSet = ({
   setToEdit,
   deleteSet,
 }) => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const toast = useToast();
 
   const [setID, setSetID] = useState(setToEdit?.id ?? "");
@@ -42,7 +37,7 @@ export const CreateUpdateDeleteSet = ({
     setToEdit?.seconds_resting ?? ""
   );
 
-  const postData = async event => {
+  const postData = async (event) => {
     event.preventDefault();
     setLoading(true);
     const newSet = {
@@ -53,7 +48,7 @@ export const CreateUpdateDeleteSet = ({
       seconds_resting: secondsResting || null,
     };
     const response = await fetch(
-      `/api/v1/workouts/${workoutID}/exercises/${exerciseID}/sets/`,
+      `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/sets/`,
       {
         method: "POST",
         body: JSON.stringify(newSet),
@@ -68,7 +63,7 @@ export const CreateUpdateDeleteSet = ({
     setLoading(false);
   };
 
-  const putData = async event => {
+  const putData = async (event) => {
     event.preventDefault();
     setLoading(true);
     const set = {
@@ -79,7 +74,7 @@ export const CreateUpdateDeleteSet = ({
       seconds_resting: secondsResting || null,
     };
     const response = await fetch(
-      `/api/v1/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
+      `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
       {
         method: "PUT",
         body: JSON.stringify(set),
@@ -100,11 +95,11 @@ export const CreateUpdateDeleteSet = ({
     });
   };
 
-  const deleteData = async event => {
+  const deleteData = async (event) => {
     event.preventDefault();
     setLoading(true);
     const response = await fetch(
-      `/api/v1/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
+      `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
       {
         method: "DELETE",
         headers: {
@@ -147,7 +142,7 @@ export const CreateUpdateDeleteSet = ({
                   min={1}
                   max={50}
                   required
-                  onChange={value => setSetNumber(value)}
+                  onChange={(value) => setSetNumber(value)}
                 >
                   <NumberInputField />
                   <NumberInputStepper>
@@ -170,7 +165,7 @@ export const CreateUpdateDeleteSet = ({
                   precision={1}
                   step={0.5}
                   required
-                  onChange={value => setWeight(value)}
+                  onChange={(value) => setWeight(value)}
                 >
                   <NumberInputField />
                   <NumberInputStepper>
@@ -191,7 +186,7 @@ export const CreateUpdateDeleteSet = ({
                   min={0}
                   max={1500}
                   required
-                  onChange={value => setReps(value)}
+                  onChange={(value) => setReps(value)}
                 >
                   <NumberInputField />
                   <NumberInputStepper>
@@ -211,7 +206,7 @@ export const CreateUpdateDeleteSet = ({
                   value={secondsWorking}
                   min={0}
                   max={6400}
-                  onChange={value => setSecondsWorking(value)}
+                  onChange={(value) => setSecondsWorking(value)}
                 >
                   <NumberInputField />
                   <NumberInputStepper>
@@ -231,7 +226,7 @@ export const CreateUpdateDeleteSet = ({
                   value={secondsResting}
                   min={0}
                   max={6400}
-                  onChange={value => setSecondsResting(value)}
+                  onChange={(value) => setSecondsResting(value)}
                 >
                   <NumberInputField />
                   <NumberInputStepper>

@@ -1,6 +1,6 @@
 import React from "react";
 import ReadWorkout from "./ReadWorkout";
-import { Accordion, Divider, Show, Stack } from "@chakra-ui/react";
+import { Accordion, Show, Stack } from "@chakra-ui/react";
 
 const ReadWorkoutList = ({ workouts, setWorkoutToEdit }) => {
   return (

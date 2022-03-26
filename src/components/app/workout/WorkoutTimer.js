@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Box,
   Button,
   Flex,
   Popover,
@@ -16,7 +15,7 @@ function WorkoutTimer() {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
   const [timerPaused, setTimerPaused] = useState(true);
 
-  const updateSecondsRemaining = change => {
+  const updateSecondsRemaining = (change) => {
     if (change === 60) {
       setSecondsRemaining(60);
     } else if (secondsRemaining + change > 0) {

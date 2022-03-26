@@ -1,19 +1,5 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Flex,
-  FormControl,
-  GridItem,
-  Heading,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  SimpleGrid,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import React from "react";
+import { Flex, Stack } from "@chakra-ui/react";
 import CreateUpdateDeleteWorkout from "../../components/app/workout/CreateUpdateDeleteWorkout";
 import WorkoutTimer from "../../components/app/workout/WorkoutTimer";
 

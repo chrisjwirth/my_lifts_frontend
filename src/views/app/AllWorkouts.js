@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link as ReactRouter, Link, useNavigate } from "react-router-dom";
-import {
-  Button,
-  Divider,
-  Flex,
-  FormControl,
-  GridItem,
-  Heading,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Link as ReactRouter } from "react-router-dom";
+import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import ReadWorkoutList from "../../components/app/workout/ReadWorkoutList";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 const AllWorkouts = ({ setWorkoutToEdit }) => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const [workouts, setWorkouts] = useState([]);
 
   const loadWorkouts = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/v1/workouts/", {
+    const response = await fetch(`${BASE_URL}/workouts/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

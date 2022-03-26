@@ -14,7 +14,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const LogOut = props => {
+const LogOut = (props) => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -27,19 +28,18 @@ const LogOut = props => {
     }
   }, []);
 
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:8000/api/v1/dj-rest-auth/logout/", {
+    fetch(`${BASE_URL}/auth/logout/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.getItem("token")}`,
       },
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
+      .then((res) => res.json())
+      .then((data) => {
         localStorage.clear();
         props.setLoggedIn(false);
         navigate("/log-in");

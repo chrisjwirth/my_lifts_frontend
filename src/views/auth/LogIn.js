@@ -13,9 +13,9 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
-import PasswordInput from "../../components/auth/PasswordInput";
 
-const LogIn = props => {
+const LogIn = (props) => {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const [show, setShow] = React.useState(false);
@@ -34,7 +34,7 @@ const LogIn = props => {
     }
   }, []);
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     const user = {
@@ -42,15 +42,15 @@ const LogIn = props => {
       password: password,
     };
 
-    fetch("http://127.0.0.1:8000/api/v1/dj-rest-auth/login/", {
+    fetch(`${BASE_URL}/auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
@@ -85,7 +85,7 @@ const LogIn = props => {
                   value={email}
                   placeholder="jack@chinchilla.com"
                   required
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </GridItem>
               <GridItem colSpan={2}>
@@ -98,7 +98,7 @@ const LogIn = props => {
                     value={password}
                     placeholder="Enter Password"
                     required
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleClick}>

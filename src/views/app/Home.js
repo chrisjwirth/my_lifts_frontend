@@ -8,7 +8,6 @@ import {
   Hide,
   HStack,
   Image,
-  Link,
   StackDivider,
   Text,
   VStack,
