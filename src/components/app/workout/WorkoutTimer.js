@@ -12,41 +12,52 @@ import {
 } from "@chakra-ui/react";
 
 function WorkoutTimer() {
-  const [secondsRemaining, setSecondsRemaining] = useState(0);
+  const [targetTime, setTargetTime] = useState(Date.now());
+  const [millisecondsRemaining, setMillisecondsRemaining] = useState(0);
   const [timerPaused, setTimerPaused] = useState(true);
 
-  const updateSecondsRemaining = (change) => {
-    if (change === 60) {
-      setSecondsRemaining(60);
-    } else if (secondsRemaining + change > 0) {
-      setSecondsRemaining(secondsRemaining + change);
+  const getSecondsRemaining = () => {
+    return Math.ceil(millisecondsRemaining / 1000);
+  };
+
+  const updateMillisecondsRemaining = (changeInSeconds) => {
+    const changeInMilliseconds = changeInSeconds * 1000;
+    if (changeInSeconds === 60) {
+      setMillisecondsRemaining(changeInMilliseconds);
+    } else if (millisecondsRemaining + changeInSeconds > 0) {
+      setMillisecondsRemaining(millisecondsRemaining + changeInMilliseconds);
     } else {
-      setSecondsRemaining(0);
+      setMillisecondsRemaining(0);
     }
+    setTargetTime(Date.now() + millisecondsRemaining + changeInMilliseconds);
   };
 
   const toggleTimer = () => {
+    setTargetTime(Date.now() + millisecondsRemaining);
     setTimerPaused(!timerPaused);
   };
 
   useEffect(() => {
     let interval = null;
-    if (!timerPaused && secondsRemaining !== 0) {
+    if (!timerPaused && getSecondsRemaining() > 0) {
       interval = setInterval(() => {
-        setSecondsRemaining(secondsRemaining - 1);
+        setMillisecondsRemaining(targetTime - Date.now());
       }, 1000);
-    } else if (timerPaused && secondsRemaining !== 0) {
+    } else if (!timerPaused && getSecondsRemaining() <= 0) {
+      setTimerPaused(true);
+      setMillisecondsRemaining(0);
+    } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [secondsRemaining, timerPaused]);
+  }, [millisecondsRemaining, timerPaused]);
 
   return (
     <Flex justify="center">
       <Popover>
         <PopoverTrigger>
           <Button w="full">
-            {secondsRemaining !== 0 ? secondsRemaining : "Timer"}
+            {getSecondsRemaining() > 0 ? getSecondsRemaining() : "Timer"}
           </Button>
         </PopoverTrigger>
         <PopoverContent>
@@ -56,11 +67,18 @@ function WorkoutTimer() {
           <PopoverBody>
             <Flex direction="column" gap={5}>
               <Flex justify="space-around">
-                <Button onClick={() => updateSecondsRemaining(-30)}>
+                <Button
+                  onClick={() => updateMillisecondsRemaining(-30)}
+                  disabled={getSecondsRemaining() < 30}
+                >
                   - 30
                 </Button>
-                <Button onClick={() => updateSecondsRemaining(60)}>60</Button>
-                <Button onClick={() => updateSecondsRemaining(30)}>+ 30</Button>
+                <Button onClick={() => updateMillisecondsRemaining(60)}>
+                  60
+                </Button>
+                <Button onClick={() => updateMillisecondsRemaining(30)}>
+                  + 30
+                </Button>
               </Flex>
               <Flex justify="center" gap={5}>
                 <Button onClick={toggleTimer}>
