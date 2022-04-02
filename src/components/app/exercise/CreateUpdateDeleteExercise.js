@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import {
   Button,
-  FormControl,
-  FormLabel,
-  GridItem,
+  Divider,
   Heading,
-  Input,
-  SimpleGrid,
+  Show,
   Stack,
   useToast,
 } from "@chakra-ui/react";
 import CreateUpdateDeleteSet from "../set/CreateUpdateDeleteSet";
+import DesktopExerciseForm from "./DesktopExerciseForm";
+import MobileExerciseForm from "./MobileExerciseForm";
 
-export const CreateUpdateDeleteExercise = ({
+function CreateUpdateDeleteExercise({
   exerciseNum,
   workoutID,
   exerciseToEdit,
   deleteExercise,
-}) => {
+}) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const toast = useToast();
 
@@ -83,26 +82,28 @@ export const CreateUpdateDeleteExercise = ({
 
   const deleteData = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const response = await fetch(
-      `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    setLoading(false);
-    toast({
-      title: "Exercise deleted.",
-      description: "The exercise was deleted successfully",
-      position: "top",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    if (exerciseID) {
+      setLoading(true);
+      const response = await fetch(
+        `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      toast({
+        title: "Exercise deleted.",
+        description: "The exercise was deleted successfully",
+        position: "top",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     deleteExercise(exerciseNum);
   };
 
@@ -118,97 +119,42 @@ export const CreateUpdateDeleteExercise = ({
     <>
       {errors === true && <Heading size="xl">Error Creating Exercise</Heading>}
       {workoutID && (
-        <Stack border="1px" spacing="24px" p={5} w="full" h="full">
-          <form onSubmit={exerciseID ? putData : postData}>
-            <SimpleGrid
-              columns={{ base: 2, md: 9 }}
-              columnGap={3}
-              rowGap={3}
-              w="full"
-            >
-              <GridItem colSpan={2}>
-                <FormControl>
-                  <FormLabel htmlFor="name">Exercise Name</FormLabel>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={name}
-                    required
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={{ base: 2, md: 1 }}>
-                <FormControl>
-                  <FormLabel htmlFor="variation">Variation</FormLabel>
-                  <Input
-                    id="variation"
-                    name="variation"
-                    type="text"
-                    value={variation}
-                    onChange={(e) => setVariation(e.target.value)}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <FormControl>
-                  <FormLabel htmlFor="description">Description</FormLabel>
-                  <Input
-                    id="description"
-                    name="description"
-                    type="text"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <FormControl>
-                  <FormLabel htmlFor="notes">Notes</FormLabel>
-                  <Input
-                    id="notes"
-                    name="notes"
-                    type="text"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                  />
-                </FormControl>
-              </GridItem>
-              <GridItem>
-                <FormControl>
-                  <FormLabel htmlFor="submit">Submit</FormLabel>
-                  <Button
-                    id="submit"
-                    type="submit"
-                    w="full"
-                    colorScheme="brand"
-                    isLoading={loading}
-                    spinnerPlacement="end"
-                  >
-                    {exerciseID ? "Update" : "Create"}
-                  </Button>
-                </FormControl>
-              </GridItem>
-              <GridItem>
-                <FormControl>
-                  <FormLabel htmlFor="delete">Delete</FormLabel>
-                  <Button
-                    id="delete"
-                    onClick={deleteData}
-                    w="full"
-                    colorScheme="brand"
-                    variant="outline"
-                    isDisabled={!exerciseID}
-                    isLoading={loading}
-                    spinnerPlacement="end"
-                  >
-                    Delete
-                  </Button>
-                </FormControl>
-              </GridItem>
-            </SimpleGrid>
-          </form>
+        <Stack border="1px" spacing="24px" p={4} w="full" h="full">
+          <Show above="md">
+            <DesktopExerciseForm
+              loading={loading}
+              exerciseID={exerciseID}
+              name={name}
+              setName={setName}
+              variation={variation}
+              setVariation={setVariation}
+              description={description}
+              setDescription={setDescription}
+              notes={notes}
+              setNotes={setNotes}
+              postData={postData}
+              putData={putData}
+              deleteData={deleteData}
+            />
+          </Show>
+          <Show below="md">
+            <MobileExerciseForm
+              loading={loading}
+              exerciseID={exerciseID}
+              name={name}
+              setName={setName}
+              variation={variation}
+              setVariation={setVariation}
+              description={description}
+              setDescription={setDescription}
+              notes={notes}
+              setNotes={setNotes}
+              postData={postData}
+              putData={putData}
+              deleteData={deleteData}
+            />
+          </Show>
+          <Divider />
           {setNumbers.map((setNum) => (
             <CreateUpdateDeleteSet
               setNum={setNum}
@@ -224,6 +170,6 @@ export const CreateUpdateDeleteExercise = ({
       )}
     </>
   );
-};
+}
 
 export default CreateUpdateDeleteExercise;

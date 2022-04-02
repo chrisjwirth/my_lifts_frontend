@@ -14,7 +14,7 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 
-const LogIn = ({ setLoggedIn }) => {
+function LogIn({ setLoggedIn }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -118,6 +118,6 @@ const LogIn = ({ setLoggedIn }) => {
       </VStack>
     </Flex>
   );
-};
+}
 
 export default LogIn;

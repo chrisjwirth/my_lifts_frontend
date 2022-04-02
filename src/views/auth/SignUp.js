@@ -14,7 +14,7 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 
-const SignUp = ({ setLoggedIn }) => {
+function SignUp({ setLoggedIn }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -134,6 +134,6 @@ const SignUp = ({ setLoggedIn }) => {
       </VStack>
     </Flex>
   );
-};
+}
 
 export default SignUp;

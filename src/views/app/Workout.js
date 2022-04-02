@@ -3,7 +3,7 @@ import { Flex, Stack, useBreakpointValue } from "@chakra-ui/react";
 import CreateUpdateDeleteWorkout from "../../components/app/workout/CreateUpdateDeleteWorkout";
 import WorkoutTimer from "../../components/app/workout/WorkoutTimer";
 
-export const Workout = ({ workoutToEdit }) => {
+function Workout({ workoutToEdit }) {
   const border = useBreakpointValue({ base: "none", md: "1px" });
 
   return (
@@ -23,6 +23,6 @@ export const Workout = ({ workoutToEdit }) => {
       </Flex>
     </>
   );
-};
+}
 
 export default Workout;

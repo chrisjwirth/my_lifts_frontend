@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link as ReactRouter } from "react-router-dom";
 import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import ReadWorkoutList from "../../components/app/workout/ReadWorkoutList";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 
-const AllWorkouts = ({ setWorkoutToEdit }) => {
+function AllWorkouts({ setWorkoutToEdit }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const [workouts, setWorkouts] = useState([]);
 
@@ -34,12 +34,11 @@ const AllWorkouts = ({ setWorkoutToEdit }) => {
         <Button
           as={ReactRouter}
           to="/workout"
-          rightIcon={<ArrowForwardIcon />}
           colorScheme="brand"
           variant="outline"
           m={0}
         >
-          New Workout
+          <AddIcon />
         </Button>
       </Flex>
       <ReadWorkoutList
@@ -48,6 +47,6 @@ const AllWorkouts = ({ setWorkoutToEdit }) => {
       />
     </VStack>
   );
-};
+}
 
 export default AllWorkouts;

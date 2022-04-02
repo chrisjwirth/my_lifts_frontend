@@ -7,19 +7,17 @@ import {
   Input,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import DeleteButtonWithWarning from "./DeleteButtonWithWarning";
-import { CheckIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function DesktopWorkoutForm({
+function DesktopExerciseForm({
   loading,
-  workoutID,
+  exerciseID,
   name,
   setName,
-  date,
-  setDate,
-  location,
-  setLocation,
+  variation,
+  setVariation,
+  description,
+  setDescription,
   notes,
   setNotes,
   postData,
@@ -27,11 +25,11 @@ function DesktopWorkoutForm({
   deleteData,
 }) {
   return (
-    <form onSubmit={workoutID ? putData : postData}>
-      <SimpleGrid columns={10} columnGap={3} rowGap={3} w="full">
+    <form onSubmit={exerciseID ? putData : postData}>
+      <SimpleGrid columns={9} columnGap={3} rowGap={3} w="full">
         <GridItem colSpan={2}>
           <FormControl>
-            <FormLabel htmlFor="name">Workout Name</FormLabel>
+            <FormLabel htmlFor="name">Exercise Name</FormLabel>
             <Input
               id="name"
               name="name"
@@ -42,30 +40,31 @@ function DesktopWorkoutForm({
             />
           </FormControl>
         </GridItem>
-        <GridItem colSpan={2}>
-          <FormControl>
-            <FormLabel htmlFor="date">Date</FormLabel>
-            <SingleDatepicker
-              id="date"
-              name="date"
-              date={date}
-              onDateChange={(date) => setDate(date)}
-            />
-          </FormControl>
-        </GridItem>
         <GridItem colSpan={1}>
           <FormControl>
-            <FormLabel htmlFor="location">Location</FormLabel>
+            <FormLabel htmlFor="variation">Variation</FormLabel>
             <Input
-              id="location"
-              name="location"
+              id="variation"
+              name="variation"
               type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={variation}
+              onChange={(e) => setVariation(e.target.value)}
             />
           </FormControl>
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem colSpan={2}>
+          <FormControl>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Input
+              id="description"
+              name="description"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </FormControl>
+        </GridItem>
+        <GridItem colSpan={2}>
           <FormControl>
             <FormLabel htmlFor="notes">Notes</FormLabel>
             <Input
@@ -79,24 +78,31 @@ function DesktopWorkoutForm({
         </GridItem>
         <GridItem mt="auto">
           <FormControl>
+            <FormLabel htmlFor="submit">Submit</FormLabel>
             <Button
+              id="submit"
               type="submit"
               w="full"
               colorScheme="brand"
               isLoading={loading}
               spinnerPlacement="end"
             >
-              {workoutID ? <EditIcon /> : <CheckIcon />}
+              {exerciseID ? <EditIcon /> : <CheckIcon />}
             </Button>
           </FormControl>
         </GridItem>
         <GridItem mt="auto">
           <FormControl>
-            <DeleteButtonWithWarning
-              deleteText="Delete Workout"
-              isDisabled={!workoutID}
-              deleteFunction={deleteData}
-            />
+            <Button
+              onClick={deleteData}
+              w="full"
+              colorScheme="brand"
+              variant="outline"
+              isLoading={loading}
+              spinnerPlacement="end"
+            >
+              <DeleteIcon />
+            </Button>
           </FormControl>
         </GridItem>
       </SimpleGrid>
@@ -104,4 +110,4 @@ function DesktopWorkoutForm({
   );
 }
 
-export default DesktopWorkoutForm;
+export default DesktopExerciseForm;

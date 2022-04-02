@@ -1,33 +1,24 @@
 import React, { useState } from "react";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  GridItem,
-  Heading,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  SimpleGrid,
-  useToast,
-} from "@chakra-ui/react";
+import { Divider, Heading, Show, useToast } from "@chakra-ui/react";
+import DesktopSetForm from "./DesktopSetForm";
+import MobileSetForm from "./MobileSetForm";
 
-export const CreateUpdateDeleteSet = ({
+function CreateUpdateDeleteSet({
   setNum,
   workoutID,
   exerciseID,
   setToEdit,
   deleteSet,
-}) => {
+}) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const toast = useToast();
 
   const [setID, setSetID] = useState(setToEdit?.id ?? "");
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [setNumber, setSetNumber] = useState(setToEdit?.set_number ?? "");
+  const [setNumber, setSetNumber] = useState(
+    setToEdit?.set_number ?? setNum + 1
+  );
   const [weight, setWeight] = useState(setToEdit?.weight ?? "");
   const [reps, setReps] = useState(setToEdit?.reps ?? "");
   const [secondsWorking, setSecondsWorking] = useState(
@@ -98,25 +89,27 @@ export const CreateUpdateDeleteSet = ({
   const deleteData = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const response = await fetch(
-      `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    setLoading(false);
-    toast({
-      title: "Set deleted.",
-      description: "The set was deleted successfully",
-      position: "top",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    if (setID) {
+      const response = await fetch(
+        `${BASE_URL}/workouts/${workoutID}/exercises/${exerciseID}/sets/${setID}/`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      toast({
+        title: "Set deleted.",
+        description: "The set was deleted successfully",
+        position: "top",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     deleteSet(setNum);
   };
 
@@ -124,155 +117,50 @@ export const CreateUpdateDeleteSet = ({
     <>
       {errors === true && <Heading size="xl">Error Creating Set</Heading>}
       {exerciseID && (
-        <form onSubmit={setID ? putData : postData}>
-          <SimpleGrid
-            columns={{ base: 2, md: 7 }}
-            columnGap={3}
-            rowGap={3}
-            w="full"
-          >
-            <GridItem colSpan={{ base: 2, md: 1 }}>
-              <FormControl>
-                <FormLabel htmlFor="setNumber">Set Number</FormLabel>
-                <NumberInput
-                  id="setNumber"
-                  name="setNumber"
-                  type="number"
-                  value={setNumber}
-                  min={1}
-                  max={50}
-                  required
-                  onChange={(value) => setSetNumber(value)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="weight">Weight</FormLabel>
-                <NumberInput
-                  id="weight"
-                  name="weight"
-                  type="number"
-                  value={weight}
-                  min={0}
-                  max={1500}
-                  precision={1}
-                  step={0.5}
-                  required
-                  onChange={(value) => setWeight(value)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="reps">Reps</FormLabel>
-                <NumberInput
-                  id="reps"
-                  name="reps"
-                  type="number"
-                  value={reps}
-                  min={0}
-                  max={1500}
-                  required
-                  onChange={(value) => setReps(value)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="secondsWorking">Seconds Working</FormLabel>
-                <NumberInput
-                  id="secondsWorking"
-                  name="secondsWorking"
-                  type="number"
-                  value={secondsWorking}
-                  min={0}
-                  max={6400}
-                  onChange={(value) => setSecondsWorking(value)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="secondsResting">Seconds Resting</FormLabel>
-                <NumberInput
-                  id="secondsResting"
-                  name="secondsResting"
-                  type="number"
-                  value={secondsResting}
-                  min={0}
-                  max={6400}
-                  onChange={(value) => setSecondsResting(value)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="submit">Submit</FormLabel>
-                <Button
-                  id="submit"
-                  type="submit"
-                  w="full"
-                  colorScheme="brand"
-                  isLoading={loading}
-                  spinnerPlacement="end"
-                >
-                  {setID ? "Update" : "Create"}
-                </Button>
-              </FormControl>
-            </GridItem>
-            <GridItem>
-              <FormControl>
-                <FormLabel htmlFor="delete">Delete</FormLabel>
-                <Button
-                  id="delete"
-                  onClick={deleteData}
-                  w="full"
-                  colorScheme="brand"
-                  variant="outline"
-                  isDisabled={!setID}
-                  isLoading={loading}
-                  spinnerPlacement="end"
-                >
-                  Delete
-                </Button>
-              </FormControl>
-            </GridItem>
-          </SimpleGrid>
-        </form>
+        <>
+          <Show above="md">
+            <DesktopSetForm
+              loading={loading}
+              setID={setID}
+              setNumber={setNumber}
+              setSetNumber={setSetNumber}
+              weight={weight}
+              setWeight={setWeight}
+              reps={reps}
+              setReps={setReps}
+              secondsWorking={secondsWorking}
+              setSecondsWorking={setSecondsWorking}
+              secondsResting={secondsResting}
+              setSecondsResting={setSecondsResting}
+              postData={postData}
+              putData={putData}
+              deleteData={deleteData}
+            />
+          </Show>
+          <Show below="md">
+            <MobileSetForm
+              loading={loading}
+              setID={setID}
+              setNumber={setNumber}
+              setSetNumber={setSetNumber}
+              weight={weight}
+              setWeight={setWeight}
+              reps={reps}
+              setReps={setReps}
+              secondsWorking={secondsWorking}
+              setSecondsWorking={setSecondsWorking}
+              secondsResting={secondsResting}
+              setSecondsResting={setSecondsResting}
+              postData={postData}
+              putData={putData}
+              deleteData={deleteData}
+            />
+          </Show>
+          <Divider />
+        </>
       )}
     </>
   );
-};
+}
 
 export default CreateUpdateDeleteSet;

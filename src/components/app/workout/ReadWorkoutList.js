@@ -1,8 +1,8 @@
 import React from "react";
 import ReadWorkout from "./ReadWorkout";
-import { Accordion, Show, Stack } from "@chakra-ui/react";
+import { Accordion, Divider, Show, Stack } from "@chakra-ui/react";
 
-const ReadWorkoutList = ({ workouts, setWorkoutToEdit }) => {
+function ReadWorkoutList({ workouts, setWorkoutToEdit }) {
   return (
     <Stack w="full" h="full" spacing={5}>
       <Show below="md">
@@ -24,9 +24,10 @@ const ReadWorkoutList = ({ workouts, setWorkoutToEdit }) => {
             setWorkoutToEdit={setWorkoutToEdit}
           />
         ))}
+        <Divider />
       </Show>
     </Stack>
   );
-};
+}
 
 export default ReadWorkoutList;

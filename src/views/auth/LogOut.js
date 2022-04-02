@@ -3,18 +3,14 @@ import { useNavigate } from "react-router-dom";
 import {
   Button,
   Flex,
-  FormControl,
   GridItem,
   Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
   SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 
-const LogOut = ({ setLoggedIn }) => {
+function LogOut({ setLoggedIn }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -63,6 +59,6 @@ const LogOut = ({ setLoggedIn }) => {
       </VStack>
     </Flex>
   );
-};
+}
 
 export default LogOut;

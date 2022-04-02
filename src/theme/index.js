@@ -34,6 +34,7 @@ const theme = extendTheme({
   },
   components: {
     Input: { ...inputSelectStyles },
+    NumberInput: { ...inputSelectStyles },
     Select: { ...inputSelectStyles },
   },
 });

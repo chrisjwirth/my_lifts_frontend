@@ -6,7 +6,7 @@ import { parseISO } from "date-fns";
 import DesktopWorkoutForm from "./DesktopWorkoutForm";
 import MobileWorkoutForm from "./MobileWorkoutForm";
 
-export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
+function CreateUpdateDeleteWorkout({ workoutToEdit }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
@@ -155,6 +155,6 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
       {workoutID && <Button onClick={addExercise}>Add Exercise</Button>}
     </>
   );
-};
+}
 
 export default CreateUpdateDeleteWorkout;
