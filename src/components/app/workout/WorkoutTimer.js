@@ -9,9 +9,11 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 function WorkoutTimer() {
+  const timerSize = useBreakpointValue({ base: "full", md: "25%" });
   const [targetTime, setTargetTime] = useState(Date.now());
   const [millisecondsRemaining, setMillisecondsRemaining] = useState(0);
   const [timerPaused, setTimerPaused] = useState(true);
@@ -56,7 +58,7 @@ function WorkoutTimer() {
     <Flex justify="center">
       <Popover>
         <PopoverTrigger>
-          <Button w="full">
+          <Button w={timerSize}>
             {getSecondsRemaining() > 0 ? getSecondsRemaining() : "Timer"}
           </Button>
         </PopoverTrigger>

@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  GridItem,
-  Heading,
-  Input,
-  SimpleGrid,
-  useToast,
-} from "@chakra-ui/react";
+import { Button, Heading, Show, useToast } from "@chakra-ui/react";
 import CreateUpdateDeleteExercise from "../exercise/CreateUpdateDeleteExercise";
 import { useNavigate } from "react-router-dom";
-import DeleteButtonWithWarning from "./DeleteButtonWithWarning";
-import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { parseISO } from "date-fns";
+import DesktopWorkoutForm from "./DesktopWorkoutForm";
+import MobileWorkoutForm from "./MobileWorkoutForm";
 
 export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
   const BASE_URL = process.env.REACT_APP_API_URL;
@@ -118,89 +109,40 @@ export const CreateUpdateDeleteWorkout = ({ workoutToEdit }) => {
   return (
     <>
       {errors === true && <Heading size="xl">Error Creating Workout</Heading>}
-      <form onSubmit={workoutID ? putData : postData}>
-        <SimpleGrid
-          columns={{ base: 2, md: 10 }}
-          columnGap={3}
-          rowGap={3}
-          w="full"
-        >
-          <GridItem colSpan={{ base: 2, md: 2 }}>
-            <FormControl>
-              <FormLabel htmlFor="name">Workout Name</FormLabel>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                value={name}
-                required
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormControl>
-          </GridItem>
-          <GridItem colSpan={{ base: 2, md: 2 }}>
-            <FormControl>
-              <FormLabel htmlFor="date">Date</FormLabel>
-              <SingleDatepicker
-                id="date"
-                name="date"
-                date={date}
-                onDateChange={(date) => setDate(date)}
-              />
-            </FormControl>
-          </GridItem>
-          <GridItem colSpan={{ base: 2, md: 1 }}>
-            <FormControl>
-              <FormLabel htmlFor="location">Location</FormLabel>
-              <Input
-                id="location"
-                name="location"
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </FormControl>
-          </GridItem>
-          <GridItem colSpan={{ base: 2, md: 3 }}>
-            <FormControl>
-              <FormLabel htmlFor="notes">Notes</FormLabel>
-              <Input
-                id="notes"
-                name="notes"
-                type="text"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </FormControl>
-          </GridItem>
-          <GridItem>
-            <FormControl>
-              <FormLabel htmlFor="save">Save</FormLabel>
-              <Button
-                id="save"
-                type="submit"
-                w="full"
-                colorScheme="brand"
-                isLoading={loading}
-                spinnerPlacement="end"
-              >
-                {workoutID ? "Update" : "Create"}
-              </Button>
-            </FormControl>
-          </GridItem>
-          <GridItem>
-            <FormControl>
-              <FormLabel htmlFor="delete">Delete</FormLabel>
-              <DeleteButtonWithWarning
-                id="delete"
-                deleteText="Delete"
-                isDisabled={!workoutID}
-                deleteFunction={deleteData}
-              />
-            </FormControl>
-          </GridItem>
-        </SimpleGrid>
-      </form>
+      <Show above="md">
+        <DesktopWorkoutForm
+          loading={loading}
+          workoutID={workoutID}
+          name={name}
+          setName={setName}
+          date={date}
+          setDate={setDate}
+          location={location}
+          setLocation={setLocation}
+          notes={notes}
+          setNotes={setNotes}
+          postData={postData}
+          putData={putData}
+          deleteData={deleteData}
+        />
+      </Show>
+      <Show below="md">
+        <MobileWorkoutForm
+          loading={loading}
+          workoutID={workoutID}
+          name={name}
+          setName={setName}
+          date={date}
+          setDate={setDate}
+          location={location}
+          setLocation={setLocation}
+          notes={notes}
+          setNotes={setNotes}
+          postData={postData}
+          putData={putData}
+          deleteData={deleteData}
+        />
+      </Show>
       {exerciseNumbers.map((exerciseNum) => (
         <CreateUpdateDeleteExercise
           exerciseNum={exerciseNum}
