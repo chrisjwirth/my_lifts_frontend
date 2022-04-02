@@ -96,7 +96,7 @@ function DesktopWorkoutForm({
             <FormLabel htmlFor="delete">Delete</FormLabel>
             <DeleteButtonWithWarning
               id="delete"
-              deleteText="Delete"
+              deleteText="Delete Workout"
               isDisabled={!workoutID}
               deleteFunction={deleteData}
             />

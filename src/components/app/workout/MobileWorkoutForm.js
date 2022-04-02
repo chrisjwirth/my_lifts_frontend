@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import DeleteButtonWithWarning from "./DeleteButtonWithWarning";
+import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 
 function MobileWorkoutForm({
   loading,
@@ -100,7 +101,6 @@ function MobileWorkoutForm({
         </GridItem>
         <GridItem>
           <FormControl>
-            <FormLabel htmlFor="save">Save</FormLabel>
             <Button
               id="save"
               type="submit"
@@ -109,16 +109,15 @@ function MobileWorkoutForm({
               isLoading={loading}
               spinnerPlacement="end"
             >
-              {workoutID ? "Update" : "Create"}
+              {workoutID ? <EditIcon /> : <CheckIcon />}
             </Button>
           </FormControl>
         </GridItem>
         <GridItem>
           <FormControl>
-            <FormLabel htmlFor="delete">Delete</FormLabel>
             <DeleteButtonWithWarning
               id="delete"
-              deleteText="Delete"
+              deleteText="Delete Workout"
               isDisabled={!workoutID}
               deleteFunction={deleteData}
             />

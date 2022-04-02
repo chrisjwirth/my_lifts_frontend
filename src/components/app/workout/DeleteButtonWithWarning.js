@@ -9,6 +9,7 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 function DeleteButtonWithWarning({ deleteText, deleteFunction, isDisabled }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,7 +24,7 @@ function DeleteButtonWithWarning({ deleteText, deleteFunction, isDisabled }) {
         isDisabled={isDisabled}
         onClick={onOpen}
       >
-        {deleteText}
+        <DeleteIcon />
       </Button>
 
       <AlertDialog
@@ -42,7 +43,7 @@ function DeleteButtonWithWarning({ deleteText, deleteFunction, isDisabled }) {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button ref={cancelRef} onClick={onClose} mx={2}>
                 Cancel
               </Button>
               <Button colorScheme="red" onClick={deleteFunction}>
