@@ -45,7 +45,9 @@ function WorkoutTimer() {
     <Flex justify="center">
       <Popover>
         <PopoverTrigger>
-          <Button>{secondsRemaining !== 0 ? secondsRemaining : "Timer"}</Button>
+          <Button w="full">
+            {secondsRemaining !== 0 ? secondsRemaining : "Timer"}
+          </Button>
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
