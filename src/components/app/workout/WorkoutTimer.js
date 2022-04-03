@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   Flex,
@@ -10,17 +10,20 @@ import {
   PopoverHeader,
   PopoverTrigger,
   useBreakpointValue,
+  useToast,
 } from "@chakra-ui/react";
 
 function WorkoutTimer() {
   const timerSize = useBreakpointValue({ base: "full", md: "25%" });
+  const toast = useToast();
+
   const [targetTime, setTargetTime] = useState(Date.now());
   const [millisecondsRemaining, setMillisecondsRemaining] = useState(0);
   const [timerPaused, setTimerPaused] = useState(true);
 
-  const getSecondsRemaining = () => {
+  const getSecondsRemaining = useCallback(() => {
     return Math.ceil(millisecondsRemaining / 1000);
-  };
+  }, [millisecondsRemaining]);
 
   const updateMillisecondsRemaining = (changeInSeconds) => {
     const changeInMilliseconds = changeInSeconds * 1000;
@@ -48,11 +51,25 @@ function WorkoutTimer() {
     } else if (!timerPaused && getSecondsRemaining() <= 0) {
       setTimerPaused(true);
       setMillisecondsRemaining(0);
+      toast({
+        title: "Timer finished.",
+        description: "Time for your next lift!",
+        position: "top",
+        status: "info",
+        duration: 10000,
+        isClosable: true,
+      });
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [millisecondsRemaining, timerPaused]);
+  }, [
+    getSecondsRemaining,
+    millisecondsRemaining,
+    targetTime,
+    timerPaused,
+    toast,
+  ]);
 
   return (
     <Flex justify="center">
@@ -70,10 +87,10 @@ function WorkoutTimer() {
             <Flex direction="column" gap={5}>
               <Flex justify="space-around">
                 <Button
-                  onClick={() => updateMillisecondsRemaining(-30)}
-                  disabled={getSecondsRemaining() < 30}
+                  onClick={() => updateMillisecondsRemaining(-10)}
+                  disabled={getSecondsRemaining() < 10}
                 >
-                  - 30
+                  - 10
                 </Button>
                 <Button onClick={() => updateMillisecondsRemaining(60)}>
                   60

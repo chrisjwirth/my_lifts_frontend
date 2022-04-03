@@ -116,7 +116,7 @@ function MobileSetForm({
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <GridItem>
+                <GridItem py={1}>
                   <FormControl>
                     <FormLabel htmlFor="secondsWorking">
                       Seconds Working
@@ -138,7 +138,7 @@ function MobileSetForm({
                     </NumberInput>
                   </FormControl>
                 </GridItem>
-                <GridItem>
+                <GridItem py={1}>
                   <FormControl>
                     <FormLabel htmlFor="secondsResting">
                       Seconds Resting
