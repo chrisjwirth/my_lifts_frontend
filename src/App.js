@@ -64,7 +64,7 @@ function App() {
                   path="/workout"
                   element={<Workout workoutToEdit={workoutToEdit} />}
                 />
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
               </Routes>
             </main>
             <Spacer />

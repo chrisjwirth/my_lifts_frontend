@@ -16,7 +16,7 @@ function NavBar({ isLoggedIn }) {
 
   return (
     <nav>
-      <Flex px={5} justify="space-between">
+      <Flex px={5} justify="space-between" alignItems="center">
         <Box p={2}>
           <Heading
             as={ReactRouter}

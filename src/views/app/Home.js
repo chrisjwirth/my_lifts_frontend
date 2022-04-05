@@ -1,5 +1,5 @@
-import React from "react";
-import { Link as ReactRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link as ReactRouter, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -14,7 +14,15 @@ import {
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
-function Home() {
+function Home({ isLoggedIn }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/all-workouts");
+    }
+  }, [isLoggedIn]);
+
   return (
     <Flex justify="Center" p={5}>
       <VStack
