@@ -29,7 +29,6 @@ function CreateUpdateDeleteExercise({
     exerciseToEdit?.description ?? ""
   );
   const [notes, setNotes] = useState(exerciseToEdit?.notes ?? "");
-  const [setCount, setSetCount] = useState(exerciseToEdit?.sets.length ?? 1);
   const [setNumbers, setSetNumbers] = useState(
     [...Array(exerciseToEdit?.sets.length).keys()] ?? [0]
   );
