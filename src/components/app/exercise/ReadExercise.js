@@ -12,7 +12,7 @@ function ReadExercise({ exercise }) {
       border="1px"
       borderColor="lightgray"
     >
-      <Heading as="h3" size="lg">
+      <Heading as="h3" size="md">
         Exercise: {exercise.name}
       </Heading>
       <ReadSetList sets={exercise.sets} />

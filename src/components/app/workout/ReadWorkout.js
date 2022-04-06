@@ -37,10 +37,13 @@ function ReadWorkout({ workout, setWorkoutToEdit }) {
           </h2>
           <AccordionPanel pb={4}>
             <Stack spacing={4} w="full" h="full">
-              <Flex justify="space-between">
-                <Heading as="h2" size="xl">
-                  {workout.name} | {workout.date.slice(0, 10)}
-                </Heading>
+              <Flex justify="space-between" align="center">
+                <Flex direction="column">
+                  <Heading as="h2" size="lg">
+                    {workout.name}
+                  </Heading>
+                  <Heading size="md">{workout.date.slice(0, 10)}</Heading>
+                </Flex>
                 <Button onClick={editWorkout}>Edit</Button>
               </Flex>
               <ReadExerciseList exercises={workout.exercises} />
@@ -52,7 +55,7 @@ function ReadWorkout({ workout, setWorkoutToEdit }) {
         <Divider />
         <Stack p={5} spacing={4} w="full" h="full">
           <Flex justify="space-between">
-            <Heading as="h2" size="xl">
+            <Heading as="h2" size="lg">
               {workout.name} | {workout.date.slice(0, 10)}
             </Heading>
             <Button onClick={editWorkout}>Edit</Button>
