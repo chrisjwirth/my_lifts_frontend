@@ -2,7 +2,7 @@ import { ColorModeScript } from "@chakra-ui/react";
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import * as serviceWorker from "./Utils/serviceWorker";
+import * as serviceWorker from "./utils/serviceWorker";
 import "focus-visible/dist/focus-visible";
 
 ReactDOM.render(
