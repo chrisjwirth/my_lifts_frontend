@@ -38,7 +38,7 @@ function App() {
       <Global styles={GlobalStyles} />
       <Router>
         <Container maxW="container.xl" p={0}>
-          <Flex h="100vh" py={5} direction="Column">
+          <Flex h="100vh" py={4} direction="Column">
             <Header isLoggedIn={isLoggedIn} />
             <Spacer />
             <main>
