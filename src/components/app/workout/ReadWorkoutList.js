@@ -4,7 +4,7 @@ import { Accordion, Divider, Show, Stack } from "@chakra-ui/react";
 
 function ReadWorkoutList({ workouts, setWorkoutToEdit }) {
   return (
-    <Stack w="full" h="full" spacing={5}>
+    <Stack w="full" h="full" spacing={2}>
       <Show below="md">
         <Accordion defaultIndex={[0]} allowMultiple>
           {workouts.map((workout, i) => (

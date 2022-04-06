@@ -36,7 +36,7 @@ function ReadWorkout({ workout, setWorkoutToEdit }) {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            <Stack spacing={5} w="full" h="full">
+            <Stack spacing={4} w="full" h="full">
               <Flex justify="space-between">
                 <Heading as="h2" size="xl">
                   {workout.name} | {workout.date.slice(0, 10)}
@@ -50,7 +50,7 @@ function ReadWorkout({ workout, setWorkoutToEdit }) {
       </Show>
       <Show above="md">
         <Divider />
-        <Stack p={5} spacing={5} w="full" h="full">
+        <Stack p={5} spacing={4} w="full" h="full">
           <Flex justify="space-between">
             <Heading as="h2" size="xl">
               {workout.name} | {workout.date.slice(0, 10)}
