@@ -13,8 +13,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import Demo from "../auth/Demo";
 
-function Home({ isLoggedIn }) {
+function Home({ isLoggedIn, setLoggedIn }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ function Home({ isLoggedIn }) {
               >
                 Sign Up
               </Button>
+              <Demo setLoggedIn={setLoggedIn} />
               <Button
                 as={ReactRouter}
                 to="/log-in"
