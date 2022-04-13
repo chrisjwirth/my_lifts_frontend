@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import DesktopNavLinks from "./DesktopNavLinks";
 import MobileNavLinks from "./MobileNavLinks";
+import LightLogo from "../../theme/LightLogo";
+import DarkLogo from "../../theme/DarkLogo";
 
 function NavBar({ isLoggedIn }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -23,7 +25,9 @@ function NavBar({ isLoggedIn }) {
             to="/"
             color={colorMode === "light" ? "brand.400" : "brand.200"}
           >
-            My Lifts
+            <Box width={[150, 200]}>
+              {colorMode === "light" ? <LightLogo /> : <DarkLogo />}
+            </Box>
           </Heading>
         </Box>
         <Spacer />
