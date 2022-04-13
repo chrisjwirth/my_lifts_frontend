@@ -67,7 +67,7 @@ function LogIn({ setLoggedIn }) {
   };
 
   return (
-    <Flex justify="Center" h={[300, 400, 500]}>
+    <Flex justify="center" align="center">
       <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
         {loading === false && <Heading size="2xl">Log In</Heading>}
         {errors === true && (

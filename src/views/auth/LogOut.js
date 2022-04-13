@@ -48,7 +48,7 @@ function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
   };
 
   return (
-    <Flex justify="Center" h={[300, 400, 500]}>
+    <Flex justify="center">
       <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
         <Heading size="2xl">{demoInProgress ? "End Demo" : "Log Out"}</Heading>
         <Text>Are you sure?</Text>

@@ -69,10 +69,10 @@ function SignUp({ setLoggedIn }) {
   };
 
   return (
-    <Flex justify="Center" h={[300, 400, 500]}>
+    <Flex justify="center">
       <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
         <Heading size="2xl">Sign Up</Heading>
-        <Text>Join My Lifts and start tracking your workouts.</Text>
+        <Text>Start tracking your lifts.</Text>
         <form onSubmit={onSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
@@ -86,7 +86,7 @@ function SignUp({ setLoggedIn }) {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
-            <GridItem colSpan={1}>
+            <GridItem colSpan={{ base: 2, md: 1 }}>
               <FormControl>Password</FormControl>
               <InputGroup size="md">
                 <Input
@@ -105,7 +105,7 @@ function SignUp({ setLoggedIn }) {
                 </InputRightElement>
               </InputGroup>
             </GridItem>
-            <GridItem colSpan={1}>
+            <GridItem colSpan={{ base: 2, md: 1 }}>
               <FormControl>Confirm Password</FormControl>
               <InputGroup size="md">
                 <Input

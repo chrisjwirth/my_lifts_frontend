@@ -9,9 +9,11 @@ function Demo({ setLoggedIn, setDemoInProgress }) {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const user = {
       email: "demo@mylifts.app",
@@ -27,6 +29,7 @@ function Demo({ setLoggedIn, setDemoInProgress }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
@@ -48,6 +51,7 @@ function Demo({ setLoggedIn, setDemoInProgress }) {
       rightIcon={<UnlockIcon />}
       colorScheme="brand"
       variant="outline"
+      isLoading={loading}
     >
       Demo
     </Button>
