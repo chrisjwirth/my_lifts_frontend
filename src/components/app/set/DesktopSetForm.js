@@ -85,7 +85,7 @@ function DesktopSetForm({
               name="reps"
               type="number"
               value={reps}
-              min={0}
+              min={1}
               max={1500}
               required
               onChange={(value) => setReps(value)}

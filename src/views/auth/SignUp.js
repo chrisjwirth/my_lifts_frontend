@@ -12,11 +12,13 @@ import {
   Input,
   InputRightElement,
   InputGroup,
+  useToast,
 } from "@chakra-ui/react";
 
 function SignUp({ setLoggedIn }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -24,7 +26,6 @@ function SignUp({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,6 +38,7 @@ function SignUp({ setLoggedIn }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const user = {
       email: email,
@@ -53,6 +55,7 @@ function SignUp({ setLoggedIn }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
@@ -63,7 +66,14 @@ function SignUp({ setLoggedIn }) {
           setPassword1("");
           setPassword2("");
           localStorage.clear();
-          setErrors(true);
+          toast({
+            title: "Error.",
+            description: "Please try again",
+            position: "top",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         }
       });
   };
@@ -125,7 +135,7 @@ function SignUp({ setLoggedIn }) {
               </InputGroup>
             </GridItem>
             <GridItem colSpan={2}>
-              <Button type="submit" w="full">
+              <Button type="submit" w="full" isLoading={loading}>
                 Sign Up
               </Button>
             </GridItem>
