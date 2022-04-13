@@ -3,7 +3,7 @@ import { Link as ReactRouter } from "react-router-dom";
 import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import ReadWorkoutList from "../../components/app/workout/ReadWorkoutList";
 import { AddIcon } from "@chakra-ui/icons";
-import LoadingSkeleton from "../../theme/LoadingSkeleton";
+import LoadingSkeleton from "../../utils/LoadingSkeleton";
 
 function AllWorkouts({ setWorkoutToEdit }) {
   const BASE_URL = process.env.REACT_APP_API_URL;

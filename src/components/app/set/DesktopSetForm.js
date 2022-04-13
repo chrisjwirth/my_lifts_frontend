@@ -12,6 +12,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import DeleteButtonWithWarning from "../../../utils/DeleteButtonWithWarning";
 
 function DesktopSetForm({
   loading,
@@ -153,16 +154,24 @@ function DesktopSetForm({
         </GridItem>
         <GridItem mt="auto">
           <FormControl>
-            <Button
-              onClick={deleteData}
-              w="full"
-              colorScheme="brand"
-              variant="outline"
-              isLoading={loading}
-              spinnerPlacement="end"
-            >
-              <DeleteIcon />
-            </Button>
+            {setID ? (
+              <DeleteButtonWithWarning
+                deleteText="Delete Set"
+                isDisabled={false}
+                deleteFunction={deleteData}
+              />
+            ) : (
+              <Button
+                onClick={deleteData}
+                w="full"
+                colorScheme="brand"
+                variant="outline"
+                isLoading={loading}
+                spinnerPlacement="end"
+              >
+                <DeleteIcon />
+              </Button>
+            )}
           </FormControl>
         </GridItem>
       </SimpleGrid>

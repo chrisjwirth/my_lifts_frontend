@@ -14,6 +14,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import DeleteButtonWithWarning from "../../../utils/DeleteButtonWithWarning";
 
 function MobileExerciseForm({
   loading,
@@ -113,16 +114,24 @@ function MobileExerciseForm({
         </GridItem>
         <GridItem>
           <FormControl>
-            <Button
-              onClick={deleteData}
-              w="full"
-              colorScheme="brand"
-              variant="outline"
-              isLoading={loading}
-              spinnerPlacement="end"
-            >
-              <DeleteIcon />
-            </Button>
+            {exerciseID ? (
+              <DeleteButtonWithWarning
+                deleteText="Delete Exercise"
+                isDisabled={false}
+                deleteFunction={deleteData}
+              />
+            ) : (
+              <Button
+                onClick={deleteData}
+                w="full"
+                colorScheme="brand"
+                variant="outline"
+                isLoading={loading}
+                spinnerPlacement="end"
+              >
+                <DeleteIcon />
+              </Button>
+            )}
           </FormControl>
         </GridItem>
       </SimpleGrid>

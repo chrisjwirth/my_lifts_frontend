@@ -8,7 +8,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import DeleteButtonWithWarning from "./DeleteButtonWithWarning";
+import DeleteButtonWithWarning from "../../../utils/DeleteButtonWithWarning";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 
 function DesktopWorkoutForm({

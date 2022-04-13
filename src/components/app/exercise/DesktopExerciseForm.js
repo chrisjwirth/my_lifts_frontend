@@ -8,6 +8,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import DeleteButtonWithWarning from "../../../utils/DeleteButtonWithWarning";
 
 function DesktopExerciseForm({
   loading,
@@ -93,16 +94,24 @@ function DesktopExerciseForm({
         </GridItem>
         <GridItem mt="auto">
           <FormControl>
-            <Button
-              onClick={deleteData}
-              w="full"
-              colorScheme="brand"
-              variant="outline"
-              isLoading={loading}
-              spinnerPlacement="end"
-            >
-              <DeleteIcon />
-            </Button>
+            {exerciseID ? (
+              <DeleteButtonWithWarning
+                deleteText="Delete Exercise"
+                isDisabled={false}
+                deleteFunction={deleteData}
+              />
+            ) : (
+              <Button
+                onClick={deleteData}
+                w="full"
+                colorScheme="brand"
+                variant="outline"
+                isLoading={loading}
+                spinnerPlacement="end"
+              >
+                <DeleteIcon />
+              </Button>
+            )}
           </FormControl>
         </GridItem>
       </SimpleGrid>
