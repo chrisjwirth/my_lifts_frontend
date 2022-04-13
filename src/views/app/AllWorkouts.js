@@ -3,12 +3,16 @@ import { Link as ReactRouter } from "react-router-dom";
 import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import ReadWorkoutList from "../../components/app/workout/ReadWorkoutList";
 import { AddIcon } from "@chakra-ui/icons";
+import LoadingSkeleton from "../../theme/LoadingSkeleton";
 
 function AllWorkouts({ setWorkoutToEdit }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
+
   const [workouts, setWorkouts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadWorkouts = async () => {
+    setLoading(true);
     const response = await fetch(`${BASE_URL}/workouts/`, {
       method: "GET",
       headers: {
@@ -18,6 +22,7 @@ function AllWorkouts({ setWorkoutToEdit }) {
     });
     const data = await response.json();
     setWorkouts(data.reverse());
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -41,10 +46,14 @@ function AllWorkouts({ setWorkoutToEdit }) {
           <AddIcon />
         </Button>
       </Flex>
-      <ReadWorkoutList
-        workouts={workouts}
-        setWorkoutToEdit={setWorkoutToEdit}
-      />
+      {loading ? (
+        <LoadingSkeleton />
+      ) : (
+        <ReadWorkoutList
+          workouts={workouts}
+          setWorkoutToEdit={setWorkoutToEdit}
+        />
+      )}
     </VStack>
   );
 }
