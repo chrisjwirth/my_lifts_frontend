@@ -2,7 +2,7 @@ import React from "react";
 import { Link as ReactRouter } from "react-router-dom";
 import { Flex, Link, useColorMode } from "@chakra-ui/react";
 
-function DesktopNavLinks({ isLoggedIn }) {
+function DesktopNavLinks({ isLoggedIn, demoInProgress }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -15,7 +15,7 @@ function DesktopNavLinks({ isLoggedIn }) {
         {colorMode === "light" ? "Dark Mode" : "Light Mode"}
       </Link>
       |
-      {isLoggedIn === true ? (
+      {isLoggedIn ? (
         <>
           <Link as={ReactRouter} to="/templates">
             My Templates
@@ -26,17 +26,17 @@ function DesktopNavLinks({ isLoggedIn }) {
           </Link>
           |
           <Link as={ReactRouter} to="/log-out">
-            Log out
+            {demoInProgress ? "End Demo" : "Log out"}
           </Link>
         </>
       ) : (
         <>
-          <Link as={ReactRouter} to="/log-in">
-            Log In
-          </Link>
-          |
           <Link as={ReactRouter} to="/sign-up">
             Sign Up
+          </Link>
+          |
+          <Link as={ReactRouter} to="/log-in">
+            Log In
           </Link>
         </>
       )}

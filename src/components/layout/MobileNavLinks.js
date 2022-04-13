@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-function MobileNavLinks({ isLoggedIn }) {
+function MobileNavLinks({ isLoggedIn, demoInProgress }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -29,7 +29,7 @@ function MobileNavLinks({ isLoggedIn }) {
           <MenuItem onClick={toggleColorMode}>
             {colorMode === "light" ? "Dark Mode" : "Light Mode"}
           </MenuItem>
-          {isLoggedIn === true ? (
+          {isLoggedIn ? (
             <>
               <MenuItem as={ReactRouter} to="/templates">
                 My Templates
@@ -38,16 +38,16 @@ function MobileNavLinks({ isLoggedIn }) {
                 My Workouts
               </MenuItem>
               <MenuItem as={ReactRouter} to="/log-out">
-                Log out
+                {demoInProgress ? "End Demo" : "Log out"}
               </MenuItem>
             </>
           ) : (
             <>
-              <MenuItem as={ReactRouter} to="/log-in">
-                Log In
-              </MenuItem>
               <MenuItem as={ReactRouter} to="/sign-up">
                 Sign Up
+              </MenuItem>
+              <MenuItem as={ReactRouter} to="/log-in">
+                Log In
               </MenuItem>
             </>
           )}

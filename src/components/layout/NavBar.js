@@ -13,7 +13,7 @@ import MobileNavLinks from "./MobileNavLinks";
 import LightLogo from "../../theme/LightLogo";
 import DarkLogo from "../../theme/DarkLogo";
 
-function NavBar({ isLoggedIn }) {
+function NavBar({ isLoggedIn, demoInProgress }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -32,10 +32,16 @@ function NavBar({ isLoggedIn }) {
         </Box>
         <Spacer />
         <Show above="md">
-          <DesktopNavLinks isLoggedIn={isLoggedIn} />
+          <DesktopNavLinks
+            isLoggedIn={isLoggedIn}
+            demoInProgress={demoInProgress}
+          />
         </Show>
         <Show below="md">
-          <MobileNavLinks isLoggedIn={isLoggedIn} />
+          <MobileNavLinks
+            isLoggedIn={isLoggedIn}
+            demoInProgress={demoInProgress}
+          />
         </Show>
       </Flex>
     </nav>

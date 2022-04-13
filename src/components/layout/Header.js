@@ -1,10 +1,10 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-function Header({ isLoggedIn }) {
+function Header({ isLoggedIn, demoInProgress }) {
   return (
     <header>
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar isLoggedIn={isLoggedIn} demoInProgress={demoInProgress} />
     </header>
   );
 }

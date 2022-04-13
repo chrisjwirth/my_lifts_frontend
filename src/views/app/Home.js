@@ -15,14 +15,14 @@ import {
 import { ArrowDownIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import Demo from "../auth/Demo";
 
-function Home({ isLoggedIn, setLoggedIn }) {
+function Home({ isLoggedIn, setLoggedIn, demoInProgress, setDemoInProgress }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !demoInProgress) {
       navigate("/all-workouts");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, demoInProgress]);
 
   return (
     <Flex justify="Center" p={5}>
@@ -50,7 +50,10 @@ function Home({ isLoggedIn, setLoggedIn }) {
               >
                 Sign Up
               </Button>
-              <Demo setLoggedIn={setLoggedIn} />
+              <Demo
+                setLoggedIn={setLoggedIn}
+                setDemoInProgress={setDemoInProgress}
+              />
               <Button
                 as={ReactRouter}
                 to="/log-in"
@@ -70,8 +73,8 @@ function Home({ isLoggedIn, setLoggedIn }) {
             />
           </Hide>
         </Flex>
-        <Flex direction="column" justify="center" alignItems="center" gap={2}>
-          <Heading size="xl">
+        <Flex direction="column" justify="center" align="center" gap={2}>
+          <Heading size="xl" align="center">
             “There are no shortcuts — everything is reps, reps, reps.”
           </Heading>
           <Heading size="lg">― Arnold Schwarzenegger</Heading>

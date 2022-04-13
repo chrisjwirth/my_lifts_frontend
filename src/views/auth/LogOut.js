@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-function LogOut({ setLoggedIn }) {
+function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -38,20 +38,25 @@ function LogOut({ setLoggedIn }) {
       .then((data) => {
         localStorage.clear();
         setLoggedIn(false);
-        navigate("/log-in");
+        if (demoInProgress) {
+          setDemoInProgress(false);
+          navigate("/");
+        } else {
+          navigate("/log-in");
+        }
       });
   };
 
   return (
     <Flex justify="Center" h={[300, 400, 500]}>
       <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
-        <Heading size="2xl">Log Out</Heading>
+        <Heading size="2xl">{demoInProgress ? "End Demo" : "Log Out"}</Heading>
         <Text>Are you sure?</Text>
         <form onSubmit={handleLogout}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
               <Button type="submit" w="full">
-                Log Out
+                {demoInProgress ? "End Demo" : "Log Out"}
               </Button>
             </GridItem>
           </SimpleGrid>

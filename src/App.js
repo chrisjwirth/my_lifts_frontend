@@ -25,6 +25,7 @@ const GlobalStyles = css`
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [demoInProgress, setDemoInProgress] = useState(false);
   const [workoutToEdit, setWorkoutToEdit] = useState();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function App() {
       <Router>
         <Container maxW="container.xl" p={0}>
           <Flex h="100vh" py={4} direction="Column">
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} demoInProgress={demoInProgress} />
             <Spacer />
             <main>
               <Routes>
@@ -53,7 +54,13 @@ function App() {
                 />
                 <Route
                   path="/log-out"
-                  element={<LogOut setLoggedIn={setLoggedIn} />}
+                  element={
+                    <LogOut
+                      setLoggedIn={setLoggedIn}
+                      demoInProgress={demoInProgress}
+                      setDemoInProgress={setDemoInProgress}
+                    />
+                  }
                 />
                 <Route path="/templates" element={<Templates />} />
                 <Route
@@ -67,7 +74,12 @@ function App() {
                 <Route
                   path="/"
                   element={
-                    <Home isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
+                    <Home
+                      isLoggedIn={isLoggedIn}
+                      setLoggedIn={setLoggedIn}
+                      demoInProgress={demoInProgress}
+                      setDemoInProgress={setDemoInProgress}
+                    />
                   }
                 />
               </Routes>
