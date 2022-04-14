@@ -15,6 +15,7 @@ import Templates from "./views/app/Templates";
 
 import theme from "./theme";
 import "./theme/styles.css";
+import ForgotPassword from "./views/auth/ForgotPassword";
 
 const GlobalStyles = css`
   .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -52,6 +53,7 @@ function App() {
                   path="/log-in"
                   element={<LogIn setLoggedIn={setLoggedIn} />}
                 />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route
                   path="/log-out"
                   element={

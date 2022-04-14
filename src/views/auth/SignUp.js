@@ -80,7 +80,7 @@ function SignUp({ setLoggedIn }) {
 
   return (
     <Flex justify="center">
-      <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
+      <VStack w="full" h="full" p={10} spacing={5} alignItems="center">
         <Heading size="2xl">Sign Up</Heading>
         <Text>Start tracking your lifts.</Text>
         <form onSubmit={onSubmit}>

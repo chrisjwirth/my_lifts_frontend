@@ -10,22 +10,16 @@ import {
   VStack,
   FormControl,
   Input,
-  InputRightElement,
-  InputGroup,
   useToast,
   Link,
 } from "@chakra-ui/react";
 
-function LogIn({ setLoggedIn }) {
+function ForgotPassword() {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
-
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,39 +34,27 @@ function LogIn({ setLoggedIn }) {
     e.preventDefault();
     setLoading(true);
 
-    const user = {
-      email: email,
-      password: password,
-    };
-
-    fetch(`${BASE_URL}/auth/login/`, {
+    fetch(`${BASE_URL}/auth/password/reset/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify({ email: email }),
     })
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
-        if (data.key) {
-          localStorage.clear();
-          localStorage.setItem("token", data.key);
-          setLoggedIn(true);
-          navigate("/all-workouts");
-        } else {
-          setEmail("");
-          setPassword("");
-          localStorage.clear();
-          setLoggedIn(false);
+        if (data.detail === "Password reset e-mail has been sent.") {
           toast({
-            title: "Invalid credentials.",
-            description: "The email or password is incorrect",
+            title: "Email sent.",
+            description: "A password reset email has been sent",
             position: "top",
-            status: "error",
+            status: "success",
             duration: 5000,
             isClosable: true,
           });
+        } else {
+          setEmail("");
         }
       });
   };
@@ -80,8 +62,8 @@ function LogIn({ setLoggedIn }) {
   return (
     <Flex justify="center" align="center">
       <VStack w="full" h="full" p={10} spacing={5} alignItems="center">
-        <Heading size="2xl">Log In</Heading>
-        <Text>What will your next lift be?</Text>
+        <Heading size="2xl">Forgot Password</Heading>
+        <Text>Please enter your email address.</Text>
         <form onSubmit={onSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
@@ -96,37 +78,18 @@ function LogIn({ setLoggedIn }) {
               />
             </GridItem>
             <GridItem colSpan={2}>
-              <FormControl>Password</FormControl>
-              <InputGroup size="md">
-                <Input
-                  pr="4.5rem"
-                  name="password"
-                  type={show ? "text" : "password"}
-                  value={password}
-                  placeholder="Enter Password"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </GridItem>
-            <GridItem colSpan={2}>
               <Button type="submit" w="full" isLoading={loading}>
-                Log In
+                Send Reset Link
               </Button>
             </GridItem>
           </SimpleGrid>
         </form>
-        <Link as={ReactRouter} to="/forgot-password">
-          Forgot Password?
+        <Link as={ReactRouter} to="/log-in">
+          Back to Log In Page
         </Link>
       </VStack>
     </Flex>
   );
 }
 
-export default LogIn;
+export default ForgotPassword;
