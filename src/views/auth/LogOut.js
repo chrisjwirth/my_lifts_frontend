@@ -55,7 +55,7 @@ function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
         <form onSubmit={handleLogout}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
-              <Button type="submit" w="full">
+              <Button type="submit" w="full" isLoading={loading}>
                 {demoInProgress ? "End Demo" : "Log Out"}
               </Button>
             </GridItem>

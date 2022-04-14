@@ -9,12 +9,12 @@ import {
   GridItem,
   VStack,
   FormControl,
-  Input,
   useToast,
   Link,
 } from "@chakra-ui/react";
+import EmailInput from "../../components/auth/EmailInput";
 
-function ForgotPassword() {
+function ResetPasswordRequest() {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
@@ -62,18 +62,14 @@ function ForgotPassword() {
   return (
     <Flex justify="center" align="center">
       <VStack w="full" h="full" p={10} spacing={5} alignItems="center">
-        <Heading size="2xl">Forgot Password</Heading>
+        <Heading size="2xl">Reset Password</Heading>
         <Text>Please enter your email address.</Text>
         <form onSubmit={onSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
               <FormControl>Email</FormControl>
-              <Input
-                name="email"
-                type="email"
+              <EmailInput
                 value={email}
-                placeholder="jack@chinchilla.com"
-                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
@@ -92,4 +88,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default ResetPasswordRequest;

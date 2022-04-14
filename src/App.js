@@ -15,7 +15,9 @@ import Templates from "./views/app/Templates";
 
 import theme from "./theme";
 import "./theme/styles.css";
-import ForgotPassword from "./views/auth/ForgotPassword";
+import ResetPasswordRequest from "./views/auth/ResetPasswordRequest";
+import ResetPassword from "./views/auth/ResetPassword";
+import SignUpVerification from "./views/auth/SignUpVerification";
 
 const GlobalStyles = css`
   .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -45,15 +47,23 @@ function App() {
             <Spacer />
             <main>
               <Routes>
+                <Route path="/sign-up" element={<SignUp />} />
                 <Route
-                  path="/sign-up"
-                  element={<SignUp setLoggedIn={setLoggedIn} />}
+                  path="/sign-up-verification/:key"
+                  element={<SignUpVerification />}
                 />
                 <Route
                   path="/log-in"
                   element={<LogIn setLoggedIn={setLoggedIn} />}
                 />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="/reset-password-request"
+                  element={<ResetPasswordRequest />}
+                />
+                <Route
+                  path="/reset-password/:uid/:token"
+                  element={<ResetPassword />}
+                />
                 <Route
                   path="/log-out"
                   element={

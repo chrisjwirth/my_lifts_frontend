@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Flex,
@@ -12,15 +12,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import PasswordInput from "../../components/auth/PasswordInput";
-import EmailInput from "../../components/auth/EmailInput";
-import ResendVerificationEmail from "./ResendVerificationEmail";
 
-function SignUp() {
+function ResetPassword() {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [email, setEmail] = useState("");
+  const { uid, token } = useParams();
+
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [loading, setLoading] = useState(true);
@@ -46,14 +45,16 @@ function SignUp() {
         duration: 5000,
         isClosable: true,
       });
+      setLoading(false);
     } else {
       const user = {
-        email: email,
-        password1: password1,
-        password2: password2,
+        uid: uid,
+        token: token,
+        new_password1: password1,
+        new_password2: password2,
       };
 
-      fetch(`${BASE_URL}/auth/registration/`, {
+      fetch(`${BASE_URL}/auth/password/reset/confirm/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,21 +64,21 @@ function SignUp() {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          console.log(data);
-          if (data.detail === "Verification e-mail sent.") {
+          if (
+            data.detail === "Password has been reset with the new password."
+          ) {
             toast({
-              title: "Verification Email Sent.",
-              description: "Please check your email to confirm your account",
+              title: "Success.",
+              description: "Please log in with the new password",
               position: "top",
               status: "success",
               duration: 5000,
               isClosable: true,
             });
+            navigate("/log-in");
           } else {
-            setEmail("");
             setPassword1("");
             setPassword2("");
-            localStorage.clear();
             toast({
               title: "Error.",
               description: "Please try again",
@@ -94,17 +95,10 @@ function SignUp() {
   return (
     <Flex justify="center">
       <VStack w="full" h="full" p={10} spacing={5} alignItems="center">
-        <Heading size="2xl">Sign Up</Heading>
-        <Text>Start tracking your lifts.</Text>
+        <Heading size="2xl">Reset Password</Heading>
+        <Text>Enter your new password.</Text>
         <form onSubmit={onSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-            <GridItem colSpan={2}>
-              <FormControl>Email</FormControl>
-              <EmailInput
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </GridItem>
             <GridItem colSpan={{ base: 2, md: 1 }}>
               <FormControl>Password</FormControl>
               <PasswordInput
@@ -116,22 +110,21 @@ function SignUp() {
             <GridItem colSpan={{ base: 2, md: 1 }}>
               <FormControl>Confirm Password</FormControl>
               <PasswordInput
-                confirmField={false}
+                confirmField={true}
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
               />
             </GridItem>
             <GridItem colSpan={2}>
               <Button type="submit" w="full" isLoading={loading}>
-                Sign Up
+                Reset Password
               </Button>
             </GridItem>
           </SimpleGrid>
         </form>
-        <ResendVerificationEmail email={email} />
       </VStack>
     </Flex>
   );
 }
 
-export default SignUp;
+export default ResetPassword;

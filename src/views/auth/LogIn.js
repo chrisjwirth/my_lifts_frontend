@@ -9,20 +9,16 @@ import {
   GridItem,
   VStack,
   FormControl,
-  Input,
-  InputRightElement,
-  InputGroup,
   useToast,
   Link,
 } from "@chakra-ui/react";
+import EmailInput from "../../components/auth/EmailInput";
+import PasswordInput from "../../components/auth/PasswordInput";
 
 function LogIn({ setLoggedIn }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const toast = useToast();
-
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,33 +82,18 @@ function LogIn({ setLoggedIn }) {
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
               <FormControl>Email</FormControl>
-              <Input
-                name="email"
-                type="email"
+              <EmailInput
                 value={email}
-                placeholder="jack@chinchilla.com"
-                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
             <GridItem colSpan={2}>
               <FormControl>Password</FormControl>
-              <InputGroup size="md">
-                <Input
-                  pr="4.5rem"
-                  name="password"
-                  type={show ? "text" : "password"}
-                  value={password}
-                  placeholder="Enter Password"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
+              <PasswordInput
+                confirmField={false}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </GridItem>
             <GridItem colSpan={2}>
               <Button type="submit" w="full" isLoading={loading}>
@@ -121,9 +102,9 @@ function LogIn({ setLoggedIn }) {
             </GridItem>
           </SimpleGrid>
         </form>
-        {/*<Link as={ReactRouter} to="/forgot-password">*/}
-        {/*  Forgot Password?*/}
-        {/*</Link>*/}
+        <Link as={ReactRouter} to="/reset-password-request">
+          Reset Password
+        </Link>
       </VStack>
     </Flex>
   );
