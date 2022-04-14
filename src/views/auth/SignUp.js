@@ -63,7 +63,6 @@ function SignUp() {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          console.log(data);
           if (data.detail === "Verification e-mail sent.") {
             toast({
               title: "Verification Email Sent.",
