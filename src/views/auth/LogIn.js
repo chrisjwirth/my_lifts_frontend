@@ -121,9 +121,9 @@ function LogIn({ setLoggedIn }) {
             </GridItem>
           </SimpleGrid>
         </form>
-        <Link as={ReactRouter} to="/forgot-password">
-          Forgot Password?
-        </Link>
+        {/*<Link as={ReactRouter} to="/forgot-password">*/}
+        {/*  Forgot Password?*/}
+        {/*</Link>*/}
       </VStack>
     </Flex>
   );
