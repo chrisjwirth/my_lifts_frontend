@@ -67,7 +67,9 @@ function SignUpVerification() {
   return (
     <Flex justify="center">
       <VStack w="full" h="full" p={10} spacing={5} alignItems="center">
-        <Heading size="2xl">Confirm Email Address</Heading>
+        <Heading size="2xl" textAlign="center">
+          Confirm Email Address
+        </Heading>
         <form onSubmit={onSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
