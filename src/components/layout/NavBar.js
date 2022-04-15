@@ -14,7 +14,7 @@ import LightLogo from "../../theme/LightLogo";
 import DarkLogo from "../../theme/DarkLogo";
 
 function NavBar({ isLoggedIn, demoInProgress }) {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   return (
     <nav>

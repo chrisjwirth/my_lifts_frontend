@@ -11,24 +11,22 @@ function AllWorkouts({ setWorkoutToEdit }) {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const loadWorkouts = async () => {
-    setLoading(true);
-    const response = await fetch(`${BASE_URL}/workouts/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    });
-    const data = await response.json();
-    setWorkouts(data.reverse());
-    setLoading(false);
-  };
-
   useEffect(() => {
-    loadWorkouts();
-    setWorkoutToEdit();
-  }, []);
+    const loadWorkouts = async () => {
+      setLoading(true);
+      const response = await fetch(`${BASE_URL}/workouts/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await response.json();
+      setWorkouts(data.reverse());
+    };
+
+    loadWorkouts().then(() => setLoading(false));
+  }, [BASE_URL]);
 
   return (
     <VStack m={5} spacing={5}>

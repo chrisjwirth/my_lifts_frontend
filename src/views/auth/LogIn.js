@@ -30,7 +30,7 @@ function LogIn({ setLoggedIn }) {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -79,15 +79,15 @@ function LogIn({ setLoggedIn }) {
         <Heading size="2xl">Log In</Heading>
         <Text>What will your next lift be?</Text>
         <form onSubmit={onSubmit}>
-          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-            <GridItem colSpan={2}>
+          <SimpleGrid rowGap={6} w="full">
+            <GridItem>
               <FormControl>Email</FormControl>
               <EmailInput
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem>
               <FormControl>Password</FormControl>
               <PasswordInput
                 confirmField={false}
@@ -95,7 +95,7 @@ function LogIn({ setLoggedIn }) {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem>
               <Button type="submit" w="full" isLoading={loading}>
                 Log In
               </Button>

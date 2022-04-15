@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Button,
-  Flex,
-  GridItem,
-  Heading,
-  SimpleGrid,
-  useToast,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, useToast, VStack } from "@chakra-ui/react";
 
 function SignUpVerification() {
   const BASE_URL = process.env.REACT_APP_API_URL;
@@ -25,7 +17,7 @@ function SignUpVerification() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -71,13 +63,9 @@ function SignUpVerification() {
           Confirm Email Address
         </Heading>
         <form onSubmit={onSubmit}>
-          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-            <GridItem colSpan={2}>
-              <Button type="submit" w="full" isLoading={loading}>
-                Confirm
-              </Button>
-            </GridItem>
-          </SimpleGrid>
+          <Button type="submit" w="full" isLoading={loading}>
+            Confirm
+          </Button>
         </form>
       </VStack>
     </Flex>

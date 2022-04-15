@@ -28,7 +28,7 @@ function ResetPasswordRequest() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -65,15 +65,15 @@ function ResetPasswordRequest() {
         <Heading size="2xl">Reset Password</Heading>
         <Text>Please enter your email address.</Text>
         <form onSubmit={onSubmit}>
-          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-            <GridItem colSpan={2}>
+          <SimpleGrid rowGap={6} w="full">
+            <GridItem>
               <FormControl>Email</FormControl>
               <EmailInput
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem>
               <Button type="submit" w="full" isLoading={loading}>
                 Send Reset Link
               </Button>

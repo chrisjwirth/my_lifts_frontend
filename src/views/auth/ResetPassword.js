@@ -30,7 +30,7 @@ function ResetPassword() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Flex,
-  GridItem,
-  Heading,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 
 function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
   const BASE_URL = process.env.REACT_APP_API_URL;
@@ -22,7 +14,7 @@ function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -53,13 +45,9 @@ function LogOut({ setLoggedIn, demoInProgress, setDemoInProgress }) {
         <Heading size="2xl">{demoInProgress ? "End Demo" : "Log Out"}</Heading>
         <Text>Are you sure?</Text>
         <form onSubmit={handleLogout}>
-          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-            <GridItem colSpan={2}>
-              <Button type="submit" w="full" isLoading={loading}>
-                {demoInProgress ? "End Demo" : "Log Out"}
-              </Button>
-            </GridItem>
-          </SimpleGrid>
+          <Button type="submit" w="full" isLoading={loading}>
+            {demoInProgress ? "End Demo" : "Log Out"}
+          </Button>
         </form>
       </VStack>
     </Flex>

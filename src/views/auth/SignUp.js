@@ -31,7 +31,7 @@ function SignUp() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [navigate, setLoading]);
 
   const onSubmit = (e) => {
     e.preventDefault();

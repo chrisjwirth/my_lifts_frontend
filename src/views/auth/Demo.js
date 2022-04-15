@@ -8,7 +8,6 @@ function Demo({ setLoggedIn, setDemoInProgress }) {
   const DEMO_PASSWORD = process.env.REACT_APP_DEMO_PASSWORD;
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = (e) => {
@@ -40,7 +39,6 @@ function Demo({ setLoggedIn, setDemoInProgress }) {
           localStorage.clear();
           setLoggedIn(false);
           setDemoInProgress(false);
-          setErrors(true);
         }
       });
   };
